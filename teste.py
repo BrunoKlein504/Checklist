@@ -79,18 +79,17 @@ for distribuidora in Distribuidoras:
 itens_distribuidoras = list(tabelas_distribuidoras.items())
 ordem_desejada = ["COMPORTAMENTO", "POPULAÇÃO", "FORNECEDOR", "LIDERANÇA"]
 
-# Itera sobre a lista saltando de 3 em 3 (para formar linhas com 3 colunas)
+
 for i in range(0, len(itens_distribuidoras), 3):
-    # Cria as 3 colunas da linha atual
+    
     cols = st.columns(3)
     
-    # Preenche cada uma das 3 colunas geradas
     for j in range(3):
-        # Verifica se o índice não ultrapassou o total de distribuidoras
+        
         if i + j < len(itens_distribuidoras):
             name, tab = itens_distribuidoras[i + j]
             
-            # Contexto da coluna atual
+            
             with cols[j]:
                 st.subheader(name)
                 
@@ -123,3 +122,9 @@ for i in range(0, len(itens_distribuidoras), 3):
                 )
    
     st.divider()
+
+
+st.markdown(
+    '<iframe title="Jornada de Segurança - Dash Distribuidoras 2026" width="1024" height="1060" src="https://app.powerbi.com/view?r=eyJrIjoiYjZkZGJiODEtMmExMS00ZGRjLWE0YzQtOTE4ZGZhNGU2ZTJlIiwidCI6IjkxZDEwNWNkLTEwYzYtNDJkMC04N2VlLWFjMDg2YmM1YTUyNyJ9&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>',
+    unsafe_allow_html=True
+)

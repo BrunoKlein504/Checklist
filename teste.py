@@ -42,50 +42,84 @@ for distribuidora in Distribuidoras:
     tabelas_distribuidoras[distribuidora] = tabela_filtrada
 
 
-for name, tab in tabelas_distribuidoras.items():
-    st.subheader(name)
+# for name, tab in tabelas_distribuidoras.items():
+#     st.subheader(name)
     
 
-    tab_corrigida = tab.reset_index()
+#     tab_corrigida = tab.reset_index()
     
 
-    ordem_desejada = ["COMPORTAMENTO", "POPULAÇÃO", "FORNECEDOR", "LIDERANÇA"]
+#     ordem_desejada = ["COMPORTAMENTO", "POPULAÇÃO", "FORNECEDOR", "LIDERANÇA"]
     
    
-    tab_corrigida['Pilar'] = pd.Categorical(
-        tab_corrigida['Pilar'], 
-        categories=ordem_desejada, 
-        ordered=True
-    )
+#     tab_corrigida['Pilar'] = pd.Categorical(
+#         tab_corrigida['Pilar'], 
+#         categories=ordem_desejada, 
+#         ordered=True
+#     )
     
-    tab_corrigida = tab_corrigida.sort_values('Pilar')
+#     tab_corrigida = tab_corrigida.sort_values('Pilar')
     
 
-    df_estilizado = (
-        tab_corrigida.style
-        .map(colorir_pilar, subset=['Pilar']) 
-        .map(colorir_status, subset=['Status']) 
-        .format({'Status': '{:.0%}'})
-    )
+#     df_estilizado = (
+#         tab_corrigida.style
+#         .map(colorir_pilar, subset=['Pilar']) 
+#         .map(colorir_status, subset=['Status']) 
+#         .format({'Status': '{:.0%}'})
+#     )
     
-    st.dataframe(df_estilizado, hide_index=True, use_container_width=True, column_config={
-        "Apuração":"Qntd de Apurações",
-        "Recebido":"Qntd de Recebidos",
-        "Status":"Status de Recebimento"
-    })
+#     st.dataframe(df_estilizado, hide_index=True, use_container_width=True, column_config={
+#         "Apuração":"Qntd de Apurações",
+#         "Recebido":"Qntd de Recebidos",
+#         "Status":"Status de Recebimento"
+#     })
 
+#     st.divider()
+
+itens_distribuidoras = list(tabelas_distribuidoras.items())
+ordem_desejada = ["COMPORTAMENTO", "POPULAÇÃO", "FORNECEDOR", "LIDERANÇA"]
+
+# Itera sobre a lista saltando de 3 em 3 (para formar linhas com 3 colunas)
+for i in range(0, len(itens_distribuidoras), 3):
+    # Cria as 3 colunas da linha atual
+    cols = st.columns(3)
+    
+    # Preenche cada uma das 3 colunas geradas
+    for j in range(3):
+        # Verifica se o índice não ultrapassou o total de distribuidoras
+        if i + j < len(itens_distribuidoras):
+            name, tab = itens_distribuidoras[i + j]
+            
+            # Contexto da coluna atual
+            with cols[j]:
+                st.subheader(name)
+                
+                tab_corrigida = tab.reset_index()
+                
+                tab_corrigida['Pilar'] = pd.Categorical(
+                    tab_corrigida['Pilar'], 
+                    categories=ordem_desejada, 
+                    ordered=True
+                )
+                
+                tab_corrigida = tab_corrigida.sort_values('Pilar')
+                
+                df_estilizado = (
+                    tab_corrigida.style
+                    .map(colorir_pilar, subset=['Pilar']) 
+                    .map(colorir_status, subset=['Status']) 
+                    .format({'Status': '{:.0%}'})
+                )
+                
+                st.dataframe(
+                    df_estilizado, 
+                    hide_index=True, 
+                    use_container_width=True, 
+                    column_config={
+                        "Apuração": "Qntd de Apurações",
+                        "Recebido": "Qntd de Recebidos",
+                        "Status": "Status de Recebimento"
+                    }
+                )
+   
     st.divider()
-
-
-
-# st.markdown(
-#     '<iframe title="Jornada de Segurança - Dash Distribuidoras 2026" width="1024" height="1060" src="https://app.powerbi.com/view?r=eyJrIjoiYjZkZGJiODEtMmExMS00ZGRjLWE0YzQtOTE4ZGZhNGU2ZTJlIiwidCI6IjkxZDEwNWNkLTEwYzYtNDJkMC04N2VlLWFjMDg2YmM1YTUyNyJ9&pageName=ReportSection9396034a29bd106109e9" frameborder="0" allowFullScreen="true"></iframe>',
-#     unsafe_allow_html=True
-# )
-
-# st.iframe("https://app.powerbi.com/view?r=eyJrIjoiYjZkZGJiODEtMmExMS00ZGRjLWE0YzQtOTE4ZGZhNGU2ZTJlIiwidCI6IjkxZDEwNWNkLTEwYzYtNDJkMC04N2VlLWFjMDg2YmM1YTUyNyJ9&pageName=ReportSection9396034a29bd106109e9")
-
-st.markdown(
-    '<iframe title="Jornada de Segurança - Dash Distribuidoras 2026" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiYjZkZGJiODEtMmExMS00ZGRjLWE0YzQtOTE4ZGZhNGU2ZTJlIiwidCI6IjkxZDEwNWNkLTEwYzYtNDJkMC04N2VlLWFjMDg2YmM1YTUyNyJ9" frameborder="0" allowFullScreen="true"></iframe>',
-    unsafe_allow_html=True
-)

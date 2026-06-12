@@ -4,10 +4,10 @@ from datetime import datetime
 import locale
 from dateutil.relativedelta import relativedelta
 
-try:
-    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
-except locale.Error:
-    print("⚠️ Locale pt_BR.UTF-8 não disponível no sistema. Usando formato numérico.")
+# try:
+#     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+# except locale.Error:
+#     print("⚠️ Locale pt_BR.UTF-8 não disponível no sistema. Usando formato numérico.")
 
 @st.cache_data
 def read_excel():

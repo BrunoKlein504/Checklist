@@ -4,7 +4,10 @@ from datetime import datetime
 import locale
 from dateutil.relativedelta import relativedelta
 
-import math
+try:
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+except locale.Error:
+    print("⚠️ Locale pt_BR.UTF-8 não disponível no sistema. Usando formato numérico.")
 
 @st.cache_data
 def read_excel():
@@ -13,11 +16,6 @@ def read_excel():
 
 def name_Month(re_month:object) -> str:
     from re import match
-
-    try:
-        locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
-    except locale.Error:
-        print("⚠️ Locale pt_BR.UTF-8 não disponível no sistema. Usando formato numérico.")
 
     match_month:object = match(r"\d{4}-\d{2}-\d{2}", re_month)[0]
 

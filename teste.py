@@ -4,7 +4,9 @@ df = read_excel()
 
 st.set_page_config(layout="wide")
 
-st.title("Checklist - Abril")
+previous_month:str = (datetime.now() - relativedelta(months=1)).strftime("%B").capitalize()
+
+st.title("Checklist - {}".format(previous_month))
 
 
 df.drop(df.loc[:, "Acumulado Prev":"Previsão mês próximo"], axis=1, inplace=True)
@@ -20,7 +22,7 @@ df_regionais = df.query("Regional != 'TODAS'")
 
 Distribuidoras = list(df_global['Distribuidora'].unique())
 
-mask = df.columns.str.contains((datetime.now() - relativedelta(months=1)).strftime("%B").capitalize())
+mask = df.columns.str.contains(previous_month)
 matching_columns = df.columns[mask]
 
 tabelas_distribuidoras = {}

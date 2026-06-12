@@ -46,6 +46,6 @@ def colorir_status(valor):
     elif valor >= 0.5:
         cor = '#fff9c4' # Amarelo (Atenção)
     else:
-        cor = '#ffcdd2' # Vermelho (Abaixo do esperado)
+        cor = "#ff5050" # Vermelho (Abaixo do esperado)
         
     return f'background-color: {cor}; color: #000000;'
